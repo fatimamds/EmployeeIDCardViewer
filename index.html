@@ -1,0 +1,111 @@
+<!doctype html>
+<html ng-app="myApp">
+  <head>
+    <title>Employee ID Cards</title>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+
+    <!-- Angular Script -->
+    <script src=https://ajax.googleapis.com/ajax/libs/angularjs/1.8.0/angular.min.js></script>
+
+    <!-- jQuery Script -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+
+    <!-- Bootstrap Script -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+  </head>
+  
+  <body ng-controller="myCtrl" class="container-fluid bg-light">
+    <!-- NAVIGATION BAR -->
+    <nav class="navbar navbar-dark bg-dark navbar-expand-lg" style="margin-left: -15px; margin-right: -15px;">
+        <!-- Navbar Title -->
+        <a class="navbar-brand mb-0 h1" href="#">Employee ID Cards</a>       
+
+        <!-- Search Bar -->
+        <ul class="navbar-nav ml-auto">
+            <input placeholder="Search for Employees" ng-model="searchText" style="padding:3px; border-radius:5px; border: 1px solid #eee"/>
+        </ul>
+    </nav>
+
+    <!-- DISPLAY ALL EMPLOYEE CARDS -->
+    <div style="display: inline-block; padding: 25px;">
+        <h5 class="text-secondary">All Employees:</h5>
+        <div ng-repeat="employee in employees |filter: searchText" class="card border-info" style="margin: 20px; float: left; width: 250px;">
+            <h6 class="card-header text-white bg-info">{{employee.name}}</h6>
+            <div class="card-body text-info">
+                <div class="card-text"><h6 style="display:inline">Employee code: </h6>{{employee.empcode}}</div>
+                <div class="card-text"><h6 style="display:inline">DOB: </h6>{{employee.dob}}</div>
+                <div class="card-text"><h6 style="display:inline">Address: </h6>{{employee.address}}</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ADD NEW EMPLOYEE -->
+    <div class="jumbotron" style="display: flex; flex-direction: column; align-items: center; justify-content: center; margin: 20px">
+        <h3 class="text-secondary">Add New Employee</h3>
+        <div class="card border-info" style="margin: 20px; width: 500px;">
+            <form name="new_employee_form" class="card-body text-info">
+                <div class="card-text">
+                    <h6 style="display:inline">Name: </h6>{{employee.name}}
+                    <input class="form-control" type="text" placeholder="Employee Name" size="100" ng-model="newEmployee.name"/>
+                    <br/>
+                </div>
+
+                <div class="card-text">
+                    <h6 style="display:inline">Employee code: </h6>
+                    <input class="form-control" type="text" placeholder="Employee Code" size="100" ng-model="newEmployee.empcode"/>
+                    <br/>
+                </div>
+
+                <div class="card-text">
+                    <h6 style="display:inline">DOB: </h6>
+                    <input class="form-control" type="text" placeholder="Date of Birth" size="100" ng-model="newEmployee.dob"/>
+                    <br/>
+                </div>
+
+                <div class="card-text">
+                    <h6 style="display:inline">Address: </h6>
+                    <input class="form-control" type="text" placeholder="Address" size="100" ng-model="newEmployee.address"/>
+                    <br/>
+                </div>
+
+                <div style="text-align: center;">
+                    <button class="btn btn-info" ng-click="addEmployee(newEmployee)">Add Employee</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer style="text-align: center; padding: 5px;">
+        <hr />
+        <p>
+          <a style="color: rgb(82, 82, 82)" href="https://twitter.com/fatimamds99">Twitter</a> • 
+          <a style="color: rgb(82, 82, 82)" href="https://www.linkedin.com/in/fatimamds/"> LinkedIn</a> • 
+          <a style="color: rgb(82, 82, 82)" href="https://github.com/fatimamds"> GitHub </a>
+        </p>
+    </footer>
+  </body>
+  
+  <script type="text/javascript">
+  var app=angular.module('myApp', []); //'[]' tells that the data to be displayed is an array
+  app.controller( 'myCtrl', function($scope)
+  {
+      // body...
+      $scope.employees=[
+          {name:'Raju', empcode:'12ACB', dob:'20/03/1990', address:'Hyderabad'},
+          {name:'Suresh', empcode:'13AGB', dob:'08/07/1980', address:'Hyderabad'},
+          {name:'Mallesh', empcode:'14KCB', dob:'10/06/1985', address:'Hyderabad'},
+          {name:'Ramesh', empcode:'16HIB', dob:'11/04/1987', address:'Hyderabad'}
+        ];
+        
+        $scope.addEmployee = function(employee)
+        {
+            $scope.employees.push(employee);
+            $scope.newEmployee=[];
+        }
+  });
+  
+  </script>
+</html>
